@@ -9,7 +9,7 @@ public class Main {
         Random random = new Random();
 
         // Variables
-        String bulbasur = """
+        String Bulbasur = """
                 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠉⢳⠴⢲⠂⠀⠀⠀⠀⠀
                 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠖⠊⠀⣠⠎⠀⡞⢹⠏⠀⠀⠀⠀
@@ -38,40 +38,30 @@ public class Main {
                 | Press L to surrender |
                 ------------------------
                 """;
-        boolean Alive = true;
+        boolean alive = true;
         int playerHealth = 100;
         int enemyHealth = 100;
-        int attackDmg;
-        String Player = "You";
-        String Enemy = "Bulbasur";
+        String player = "You";
+        String enemy = "Bulbasur";
         char choice;
         char start;
         boolean enemyTurn = true;
 
+        // Starting the game + validating start key input
         System.out.println("Welcome to the Arena!");
 
-        // Starting the game + validating start key input
         System.out.print("Press Q to start the game: ");
         do{
             start = scanner.next().toUpperCase().charAt(0);
-            if(start != 'Q'){
-                System.out.print("Invalid input. Try again: ");
-            }
+            System.out.print("Invalid input. Try again: ");
         }while (start != 'Q');
 
         // Dramatic introduction to the opponent
-        System.out.println("\nThe battle has begun!\n");
-        System.out.println("Your opponent is.....\n");
-        Thread.sleep(2000);
-        System.out.println("...\n");
-        Thread.sleep(2000);
-        System.out.println(bulbasur);
-        System.out.println("BULBASUR!!!!!!!!!!!!!!");
+        Logic.dramaticIntro(Bulbasur);
 
         // setting up a while loop which ends when either the player or enemy dies
-        while(Alive) {
+        while(alive) {
             int attackChance = random.nextInt(1,3); // whenever the loop resets, the attack chance resets
-            int missed = random.nextInt(1,6); // whenever loop resets, the missed chance resets
 
             Thread.sleep(2000);
             System.out.println(menu);
@@ -80,23 +70,16 @@ public class Main {
                 // Player is deciding whether to attack / heal / surrender
                 switch (choice) {
                     case 'X' -> {
-                        if (missed == 5) {
-                            System.out.println("You have missed your attack.....");
-                        } else {
-                            attackDmg = Logic.attack(Player);
-                            System.out.printf("The enemy is at %1d\n", enemyHealth -= attackDmg);
-                            Alive = Logic.winner(enemyHealth, playerHealth, Alive);
-                            enemyTurn = Alive;
-                        }
+                            enemyHealth = Logic.attack(player, enemyHealth, enemy);
+                            alive = Logic.winner(enemyHealth, playerHealth);
+                            enemyTurn = alive;
                     }
-                    case 'H' -> {
-                        System.out.printf("Your at %1d health now!\n", playerHealth += Logic.heal(Player));
-                    }
+                    case 'H' -> playerHealth = Logic.heal(player, playerHealth);
                     case 'L' -> {
                         System.out.println("You raised the white flag!");
                         System.out.println("Game over...");
-                        Alive = false;
-                        enemyTurn = Alive;
+                        alive = false;
+                        enemyTurn = false;
                     }
                     default -> {
                         System.out.println("Invalid input");
@@ -104,21 +87,16 @@ public class Main {
                     }
                 }
 
-            if(enemyTurn) { // checking if the player killed the enemy then the enemy wont do his attacks
+            if(enemyTurn) { // checking if the player killed the enemy then the enemy won't do his attacks
                 System.out.println("Bulbasur is deciding his next move.....");
                 Thread.sleep(4000);
                 // Enemy is deciding whether to attack / heal based on the number of attackChance (random)
                 switch (attackChance) {
                     case 1 -> {
-                        if (missed == 5) {
-                            System.out.println("Bulbasur has missed his attack!");
-                        } else {
-                            attackDmg = Logic.attack(Enemy);
-                            System.out.printf("Your at %1d health now!\n", playerHealth -= attackDmg);
-                            Alive = Logic.winner(enemyHealth, playerHealth, Alive);
-                        }
+                        playerHealth = Logic.attack(enemy, playerHealth, player);
+                        alive = Logic.winner(enemyHealth, playerHealth);
                     }
-                    case 2 -> System.out.printf("Bulbasur is at %1d health now!\n", enemyHealth += Logic.heal(Enemy));
+                    case 2 -> enemyHealth = Logic.heal(enemy, enemyHealth);
                 }
             }
         }
