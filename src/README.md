@@ -1,0 +1,4 @@
+Made this project after i told gemini to generate some project ideas i could make. It suggested 3 and i found this one the most exciting. Took me like 2 days to make this amidst my exams. I did show this code to the gemini chat i got my ideas from to see what it says about my code and things i could improve. hence if you put my code in an ai code flagger or smth like that it would prob be flagged as ai written but i can assure you i wrote it. I took barely any help from the ai with the logic.
+
+Though i did ask it on how i can manage my methods better and it told me to make a seperate class.
+Thus i learned how i can make atleast slighter cleaner code hehe. Otherwise this project helped reinforce the concepts of methods for me which so far i was sorta struggling to grip with.
