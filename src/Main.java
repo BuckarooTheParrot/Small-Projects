@@ -51,10 +51,11 @@ public class Main {
         System.out.println("Welcome to the Arena!");
 
         System.out.print("Press Q to start the game: ");
-        do{
+        start = scanner.next().toUpperCase().charAt(0);
+        while(start != 'Q'){
             start = scanner.next().toUpperCase().charAt(0);
             System.out.print("Invalid input. Try again: ");
-        }while (start != 'Q');
+        }
 
         // Dramatic introduction to the opponent
         Logic.dramaticIntro(Bulbasur);
