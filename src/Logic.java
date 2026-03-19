@@ -9,10 +9,10 @@ public class Logic {
         int damage = random.nextInt(10,16);
         int missed = random.nextInt(1,6);
         if (missed == 5) {
-            System.out.printf("%s missed!\n", name1);
+            System.out.printf("\n%s missed!\n", name1);
             return health;
         }else{
-            System.out.printf("%s attacked!\n", name1);
+            System.out.printf("\n%s attacked!\n", name1);
             if (crit == 5) {
                 System.out.println("CRITICAL HIT!");
                 Thread.sleep(1000);
@@ -28,7 +28,7 @@ public class Logic {
     // healing mechanic
     static int heal(String name, int health){
         int healAmount = random.nextInt(5,11);
-        System.out.printf("%s have healed!\n", name);
+        System.out.printf("\n%s have healed!\n", name);
         System.out.printf("%s at %1d health now!\n", name, health + healAmount);
         return health + healAmount;
     }
@@ -48,13 +48,13 @@ public class Logic {
         }
     }
 
-    static void dramaticIntro(String bulbasur) throws InterruptedException{
+    static void dramaticIntro(String enemy, String enemyName) throws InterruptedException{
         System.out.println("\nThe battle has begun!\n");
         System.out.println("Your opponent is.....\n");
         Thread.sleep(2000);
         System.out.println("...\n");
         Thread.sleep(2000);
-        System.out.println(bulbasur);
-        System.out.println("BULBASUR!!!!!!!!!!!!!!");
+        System.out.println(enemy);
+        System.out.printf("\n %s!!!!!!!!!!!!!!\n", enemyName);
     }
 }
